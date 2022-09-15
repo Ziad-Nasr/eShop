@@ -27,6 +27,7 @@ const AltSignIn = () => {
           color="black"
           icon={require('../../assets/google.png')}
         />
+ {/* onPress={() => navigation.navigate('Register')}> */}
       </View>
     </View>
   );

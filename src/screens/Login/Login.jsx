@@ -9,9 +9,66 @@ import CheckBox from '@react-native-community/checkbox';
 import MainTitle from '../../components/MainTitle/MainTitle';
 import AltSignIn from '../../components/AltSignIn/AltSignIn';
 import {Text} from '../../wrappers';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserData} from '../../redux/userReducer';
+import * as axios from '../../hooks/useAxios';
 const Login = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false);
+  const [users, setUsers] = React.useState('');
+  const dispatch = useDispatch();
+  const email = useSelector(state => state.input);
+
+  const login = () => {
+    console.log('users');
+    console.log(users.email);
+    console.log('users');
+    dispatch(
+      setUserData({
+        id: 1,
+        name: 'Zoz',
+      }),
+      // console.log(users),
+    );
+    navigation.navigate('tab');
+  };
+
+  const dummyData = () => {
+    console.log(email.name.payload);
+    let data = {email: 'Cager@gmail.com'};
+    axios
+      .get('/Users', {id: 4})
+      .then(response => {
+        console.log('response');
+        console.log('response.data.email');
+        console.log(response.data);
+        console.log('response.data.name');
+        console.log(response.data[0].name);
+        console.log(typeof response.data);
+
+        setUsers(response.data);
+        login();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    // let dataTany = {
+    //   email: 'Cager@gmail.com',
+    //   password: '112233',
+    //   name: 'Cager',
+    // };
+    // // console.log(dataTany);
+    // axios
+    //   .post('/Users', dataTany)
+    //   .then(response => {
+    //     console.log('Test');
+    //     // console.log(response);
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+  };
+
   return (
     <View style={styles.LoginContainer}>
       {/* <View style={styles.MainTitleContainer}> */}
@@ -56,7 +113,7 @@ const Login = ({navigation}) => {
           </View>
         </View>
         <View>
-          <OrangeButton ButtonText="Sign in" />
+          <OrangeButton ButtonText="Sign in" onPress={() => dummyData()} />
           <View style={styles.OrangeBtn}>
             <Text style={styles.black}>
               Not a memebr?
@@ -70,7 +127,7 @@ const Login = ({navigation}) => {
         </View>
       </View>
       <View>
-        <AltSignIn />
+        <AltSignIn navigate={navigation} login={'home'} />
       </View>
     </View>
   );

@@ -8,28 +8,30 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {LogBox} from 'react-native';
 LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
-
+import {Provider} from 'react-redux';
 import {Navigations} from './src/navigations';
 import tab from './src/navigations/tab';
-
+import store from './src/redux/store';
 export default function Main() {
   const Stack = createNativeStackNavigator();
   // const Tab = createBottomTabNavigator();
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {Navigations.map(route => (
-            <Stack.Screen
-              key={route.name}
-              name={route.name}
-              component={route.component}
-              options={{headerShown: false}}
-            />
-          ))}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </GestureHandlerRootView>
+    <Provider store={store}>
+      <GestureHandlerRootView style={{flex: 1}}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {Navigations.map(route => (
+              <Stack.Screen
+                key={route.name}
+                name={route.name}
+                component={route.component}
+                options={{headerShown: false}}
+              />
+            ))}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </GestureHandlerRootView>
+    </Provider>
   );
 }
 

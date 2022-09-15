@@ -2,15 +2,15 @@ import axios from 'axios';
 
 export const API_LINK = 'https://62e10e64fa99731d75cca409.mockapi.io/';
 
-export const post = async (url, data = new FormData()) => {
+export const post = async (url, data = {}) => {
   return await axios({
     method: 'POST',
     url: API_LINK + url,
     data: data,
-    headers: {
-      Accept: 'application/json, text/plain, /',
-      'Content-Type': 'multipart/form-data',
-    },
+    // headers: {
+    //   Accept: 'application/json, text/plain, /',
+    //   'Content-Type': 'multipart/form-data',
+    // },
   })
     .then(response => {
       return response;

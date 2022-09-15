@@ -2,8 +2,8 @@ import React from 'react';
 import {View, TextInput, StyleSheet, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './FormInput.styles';
-// import {Provider} from 'react-redux';
-// import {store} from '../../screens/Payment/Payment';
+import {useDispatch} from 'react-redux';
+import {setInputData, setInputPassowrd} from '../../redux/inputReducer';
 
 const FormInput = ({
   placeholder,
@@ -11,6 +11,8 @@ const FormInput = ({
   preTextsrc,
   secureTextEntry = false,
 }) => {
+  const dispatch = useDispatch();
+
   const [Input, setInput] = React.useState('');
 
   console.log(iconsrc);
@@ -20,11 +22,10 @@ const FormInput = ({
   function SendData(Data) {
     let {id} = Data;
     // console.log(Data);
-    AsyncStorage.setItem('INPUT', Data);
+    dispatch(setInputData(Input));
   }
 
   return (
-    // <Provider store={store}>
     <View style={styles.InputContainer}>
       {preTextsrc ? <Image source={preTextsrc} style={styles.Loupe} /> : null}
       <TextInput
@@ -39,7 +40,6 @@ const FormInput = ({
       />
       <Image source={iconsrc} style={styles.icon} />
     </View>
-    // </Provider>
   );
 };
 

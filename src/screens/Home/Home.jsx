@@ -6,13 +6,13 @@ import OrangeButton from '../../components/OrangeButton/OrangeButton';
 import FormScan from '../../components/FormScan/FormScan';
 import BlueBell from '../../components/BlueBell/BlueBell';
 import Item from '../Item/Item';
-// import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
+import {useSelector, useDispatch} from 'react-redux';
 import styles from './Home.styles';
 
 const Home = ({navigation}) => {
-  // const Tab = createBottomTabNavigator();
-
+  const user = useSelector(state => state.users);
+  console.log('user');
+  console.log(user.id.payload.name);
   const Recommended = [
     {
       image: require('../../assets/Zara/front1.jpg'),
@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
     <View style={styles.MainContainer}>
       <View>
         <View style={styles.NameBell}>
-          <Text>Morning, User!</Text>
+          <Text>Morning, {user.id.payload.name}!</Text>
           <BlueBell />
         </View>
         <Text style={styles.Title}>What are you looking for today!</Text>

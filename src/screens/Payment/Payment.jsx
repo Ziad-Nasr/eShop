@@ -54,7 +54,6 @@ const Payment = ({navigation}) => {
   // }
   // const store = configureStore({reducer: counterReducer});
 
-  // console.log(store.getState());
 
   const onOpen = () => {
     modalizeRef.current?.open();
@@ -127,14 +126,14 @@ const Payment = ({navigation}) => {
       .catch(error => {});
   };
   const paymentMethods = (key = null) => {
-    // let data = {};
-    // axios
-    //   .get('/Cards', data)
-    //   .then(response => {
-    //     console.log(response.data);
-    //     setAxiosCardsList(response.data);
-    //   })
-    //   .catch(error => {});
+    let data = {};
+    axios
+      .get('/Cards', data)
+      .then(response => {
+        console.log(response.data);
+        setAxiosCardsList(response.data);
+      })
+      .catch(error => {});
   };
   var cardData = [];
   cardData = paymentMethods();
